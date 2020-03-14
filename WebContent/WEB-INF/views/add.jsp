@@ -14,7 +14,7 @@
 </head>
 <body>
 	<h1>Enter information below to add film</h1>
-	<form:form action="addObject.do" method="POST" modelAttribute="film">
+	<form:form action="addNewFilm.do" method="POST" modelAttribute="film">
 		<form:label path="title">Title:</form:label>
 		<form:input path="title" />
 		<br />

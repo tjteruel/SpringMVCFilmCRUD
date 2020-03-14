@@ -19,6 +19,13 @@ public class Film {
 	public Film(){}
 	
 	
+	public Film(String title, Integer releaseYear, String rating, String description) {
+		super();
+		this.title = title;
+		this.releaseYear = releaseYear;
+		this.rating = rating;
+		this.description = description;
+	}
 	public Film(String title, Integer releaseYear, String rating, String description, String language,
 			List<Actor> actors) {
 		super();

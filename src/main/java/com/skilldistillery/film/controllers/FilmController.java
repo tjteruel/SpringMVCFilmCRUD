@@ -86,7 +86,7 @@ public class FilmController {
 		  try {
 		    conn = DriverManager.getConnection(URL, user, pass);
 		    conn.setAutoCommit(false); // START TRANSACTION
-		    String sql = "INSERT into film VALUES title=?, description=?, release year id=?, rating=?";
+		    String sql = "INSERT into film (title, description, release_year, rating, language_id) VALUES (?, ?, ?, ?, 1)";
 		    PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		    stmt.setString(1, film.getTitle());
 		    stmt.setString(2, film.getDescription());
@@ -120,7 +120,7 @@ public class FilmController {
 			        System.err.println("Error trying to rollback");
 			      }
 			    }
-//			    throw new RuntimeException("Error inserting actor " + film);
+			    throw new RuntimeException("Error inserting film " + film);
 			  }
 			mv.addObject("film", film);
 			mv.setViewName("WEB-INF/views/filmAdded.jsp");

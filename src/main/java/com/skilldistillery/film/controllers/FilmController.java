@@ -25,6 +25,13 @@ public class FilmController {
 	private FilmDAO filmDao;
 	
 	private static final String URL = "jdbc:mysql://localhost:3306/sdvid?useSSL=false";
+	
+	@RequestMapping(path="addForm.do", method=RequestMethod.GET)
+	public ModelAndView addForm() {
+		Film u = new Film();
+		ModelAndView mv = new ModelAndView("WEB-INF/views/add.jsp", "film", u);
+		return mv;
+	}
 
 	@RequestMapping (path="display.do", method=RequestMethod.GET)
 		public ModelAndView findFilmById(int filmId) {

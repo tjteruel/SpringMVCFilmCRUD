@@ -26,6 +26,8 @@ public class FilmController {
 	
 	private static final String URL = "jdbc:mysql://localhost:3306/sdvid?useSSL=false";
 
+	
+	//returns FILM by ID
 	@RequestMapping (path="display.do", method=RequestMethod.GET)
 		public ModelAndView findFilmById(int filmId) {
 		ModelAndView mv = new ModelAndView();
@@ -55,20 +57,68 @@ public class FilmController {
 				film.setActors(findActorsByFilmId(filmId));
 				film.setLanguage(findLanguageById(filmId));
 			}
-			
 			rs.close();
 			pst.close();
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		mv.addObject("film", film);
 		mv.setViewName("WEB-INF/views/display.jsp");
 		return mv;
-
 	}
 	
+	//user adds FILM
+	@RequestMapping (path="display.do", method=RequestMethod.GET)
+	public ModelAndView addFilm(Film film) {
+		ModelAndView mv = new ModelAndView();
+		String user = "student";
+		String pass = "student";
+		  Connection conn = null;
+		  try {
+		    conn = DriverManager.getConnection(URL, user, pass);
+		    conn.setAutoCommit(false); // START TRANSACTION
+		    String sql = "INSERT into film SET title=?, description=?, release year id=?, rating=?";
+		    PreparedStatement stmt = conn.prepareStatement(sql);
+		    stmt.setString(1, film.getTitle());
+		    stmt.setString(2, film.getDescription());
+		    stmt.setInt(3, film.getReleaseYear());
+		    stmt.setString(4, film.getRating());
+		    int updateCount = stmt.executeUpdate();
+		    //stretch goal - connects film table to film_actor table
+//		    if (updateCount == 1) {
+//		        ResultSet keys = stmt.getGeneratedKeys();
+//		        if (keys.next()) {
+//		          int newFilmId = keys.getInt(1);
+//		          film.setId(newFilmId);
+//		          if (film.getActors() != null && film.getActors().size() > 0) {
+//		            sql = "INSERT INTO film_actor (film_id, actor_id) VALUES (?,?)";
+//		            stmt = conn.prepareStatement(sql);
+//		            for (Actor actors : film.getActors()) {
+//		              stmt.setInt(1, film.getId());
+//		              stmt.setInt(2, newFilmId);
+//		              updateCount = stmt.executeUpdate();
+//		            }
+//		          }
+//		        }
+//		      } else {
+//		        film = null;
+//		      }
+		      conn.commit();           // COMMIT TRANSACTION
+		  } catch (SQLException sqle) {
+			    sqle.printStackTrace();
+			    if (conn != null) {
+			      try { conn.rollback(); }
+			      catch (SQLException sqle2) {
+			        System.err.println("Error trying to rollback");
+			      }
+			    }
+			    throw new RuntimeException("Error inserting actor " + film);
+			  }
+			mv.addObject("film", film);
+			mv.setViewName("WEB-INF/views/display.jsp");
+			return mv;
+			}
 	
 	//returns ACTORs by FILM ID
 	public List<Actor> findActorsByFilmId(int filmId) {

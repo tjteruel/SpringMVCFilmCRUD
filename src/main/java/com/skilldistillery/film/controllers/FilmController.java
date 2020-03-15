@@ -72,9 +72,15 @@ public class FilmController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		mv.addObject("film", film);
-		mv.setViewName("WEB-INF/views/display.jsp");
-		return mv;
+		if (film == null) {
+			mv.setViewName("WEB-INF/views/filmNotFound.jsp");
+			return mv;
+		}
+		else {			
+			mv.addObject("film", film);
+			mv.setViewName("WEB-INF/views/display.jsp");
+			return mv;
+		}
 	}
 	
 	//user adds FILM

@@ -13,7 +13,7 @@
 </head>
 <body>
 	<h1>${film.title}</h1>
-	<h3>Rating: ${film.rating}| Released: ${film.releaseYear}</h3>
+	<h3>Rating: ${film.rating}  |  Released: ${film.releaseYear}</h3>
 	
 	<p>${film.description}</p>
 	<h3>Cast</h3>
@@ -22,6 +22,7 @@
 	<li>${ actor.firstName} ${ actor.lastName}</li>
 	</c:forEach>
 	</ul>
+	<h3>Click on button below to delete</h3>
 	<form action="filmDelete.do" method="post" modelAttribute="film">
 		<input type="submit" value="${film.id}" name="Delete" />
 	</form>

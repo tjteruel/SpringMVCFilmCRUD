@@ -22,8 +22,8 @@
 	<li>${ actor.firstName} ${ actor.lastName}</li>
 	</c:forEach>
 	</ul>
-	<form:form action="addForm.do" method="get" modelAttribute="film">
-		<input type="submit" value="film" />
+	<form:form action="filmDelete.do" method="post" modelAttribute="film">
+		<input type="submit" value="Delete Film" />
 	</form:form>
 	
 	

@@ -21,6 +21,9 @@
 	<li>${ actor.firstName} ${ actor.lastName}</li>
 	</c:forEach>
 	</ul>
+	<form action="filmDelete.do" method="get">
+	<input type="submit" value="delete"/>
+	</form>
 	
 	
 </body>

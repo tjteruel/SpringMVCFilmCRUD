@@ -16,7 +16,9 @@ import com.skilldistillery.film.entities.Film;
 @Component
 public class FilmDAOJdbcImpl implements FilmDAO {
 	private static final String URL = "jdbc:mysql://localhost:3306/sdvid?useSSL=false";
-
+	private String user = "student";
+	private String pass = "student";
+	private int uc;
 	static {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -181,6 +183,46 @@ public class FilmDAOJdbcImpl implements FilmDAO {
 		}
 		return languageName;
 	}
+	
+	//deletes film by ID
+	@Override
+	public boolean deleteFilm(int filmId) {
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(URL, user, pass);
+			conn.setAutoCommit(false); // START TRANSACTION
+
+			String sql = "DELETE FROM film WHERE film.id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, filmId);
+			int updateCount = stmt.executeUpdate();
+			if (updateCount == 1) {
+				conn.commit(); // COMMIT TRANSACTION
+				stmt.close();
+				return true;
+			}
+		} catch (Exception sqle) {
+			sqle.printStackTrace();
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (Exception sqle2) {
+					System.err.println("Error trying to rollback");
+				}
+			}
+			return false;
+		} finally {
+			try {
+
+				conn.close();
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+
 
 }
 

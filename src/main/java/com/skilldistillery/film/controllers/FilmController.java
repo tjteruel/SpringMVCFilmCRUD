@@ -28,13 +28,13 @@ public class FilmController {
 	
 	private static final String URL = "jdbc:mysql://localhost:3306/sdvid?useSSL=false";
 	
+	//add form
 	@RequestMapping(path="addForm.do", method=RequestMethod.GET)
 	public ModelAndView addForm() {
 		Film u = new Film();
 		ModelAndView mv = new ModelAndView("WEB-INF/views/add.jsp", "film", u);
 		return mv;
 	}
-
 	
 	//returns FILM by ID
 	@RequestMapping (path="display.do", method=RequestMethod.GET)
@@ -144,14 +144,15 @@ public class FilmController {
 		}
 	}
 	
-	
+	//update form
 	@RequestMapping(path="updateForm.do", method=RequestMethod.GET)
 	public ModelAndView updateForm() {
 		Film u = new Film();
 		ModelAndView mv = new ModelAndView("WEB-INF/views/filmUpdate.jsp", "film", u);
 		return mv;
 	}
-	//
+	
+	//updates FILM
 	@RequestMapping("updateFilm.do")
 	public String updateFilm(@RequestParam("Update") Film film) {
 		if (filmDao.updateFilm(film)) {

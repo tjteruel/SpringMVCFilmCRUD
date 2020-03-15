@@ -26,6 +26,17 @@
 	<form action="filmDelete.do" method="post" modelAttribute="film">
 		<input type="submit" value="${film.id}" name="Delete" />
 	</form>
+	<h3>Find another film</h3>
+	<form action="display.do" method="GET">
+		<label path="filmId"> Film ID </label> <input type="text"
+			name="filmId" path="filmId" /> <input type="submit" value="display" />
+	</form>
+	<br>
+	<br>
+		<h3>Add a new film</h3>
+	<form:form action="addForm.do" method="get" modelAttribute="film">
+		<input type="submit" value="Add new Film" />
+	</form:form>
 	
 	
 </body>

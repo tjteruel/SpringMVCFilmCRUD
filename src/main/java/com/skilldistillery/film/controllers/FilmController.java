@@ -128,7 +128,7 @@ public class FilmController {
 			}
 	
 	//deletes FILM by FILM ID
-	@RequestMapping (path="filmDelete.do", method=RequestMethod.POST)
+	@RequestMapping (path="filmDelete.do", method=RequestMethod.GET)
 	public ModelAndView deleteFilm(Film film) {
 			ModelAndView mv = new ModelAndView();
 			String user = "student";
@@ -137,7 +137,7 @@ public class FilmController {
 		  try {
 		    conn = DriverManager.getConnection(URL, user, pass);
 		    conn.setAutoCommit(false); // START TRANSACTION
-		    String sql = "DELETE FROM film_actor WHERE actor_id = ?";
+		    String sql = "DELETE FROM film_actor WHERE film_id = ?";
 		    PreparedStatement stmt = conn.prepareStatement(sql);
 		    stmt.setInt(1, film.getId());
 		    int updateCount = stmt.executeUpdate();

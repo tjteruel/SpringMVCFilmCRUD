@@ -16,31 +16,31 @@
 
 	<form:form action="updateFilm.do" method="post" modelAttribute="film">
 		<form:label path="title"> Film title </form:label> 
-		<form:input type="text" name="Film title" path="filmId" placeholder="${film.title}"/> 
+		<form:input type="text" path="title" placeholder="${film.title}"/> 
 		<br>
-		<form:label path="filmId"> Film description </form:label> 
-		<form:input type="text" name="Film title" path="filmId" placeholder="${film.description}"/> 
+		<form:label path="description"> Film description </form:label> 
+		<form:input type="text" name="Film title" path="description" placeholder="${film.description}"/> 
 		<br>
-		<form:label path="filmId"> Release Year </form:label> 
-		<form:input type="text" name="Film title" path="filmId" placeholder="${film.releaseYear}"/> 
+		<form:label path="releaseYear"> Release Year </form:label> 
+		<form:input type="text" name="Film title" path="releaseYear" placeholder="${film.releaseYear}"/> 
 		<br>
-		<form:label path="filmId"> Language Id </form:label> 
-		<form:input type="text" name="Film title" path="filmId" placeholder="${film.languageId}"/> 
+		<form:label path="languageId"> Language Id </form:label> 
+		<form:input type="text" name="Film title" path="languageId" placeholder="${film.languageId}"/> 
 		<br>
-		<form:label path="filmId"> Rental Duration </form:label> 
-		<form:input type="text" name="Film title" path="filmId" placeholder="${film.rentalDuration}"/> 
+		<form:label path="rentalDuration"> Rental Duration </form:label> 
+		<form:input type="text" name="Film title" path="rentalDuration" placeholder="${film.rentalDuration}"/> 
 		<br>
-		<form:label path="filmId"> Rental Rate </form:label> 
-		<form:input type="text" name="Film title" path="filmId" placeholder="${film.rentalRate}"/> 
+		<form:label path="rentalRate"> Rental Rate </form:label> 
+		<form:input type="text" name="Film title" path="rentalRate" placeholder="${film.rentalRate}"/> 
 		<br>
-		<form:label path="filmId"> Replacement Cost </form:label> 
-		<form:input type="text" name="Film title" path="filmId" placeholder="${film.replacementCost}"/> 
+		<form:label path="replacementCost"> Replacement Cost </form:label> 
+		<form:input type="text" name="Film title" path="replacementCost" placeholder="${film.replacementCost}"/> 
 		<br>
-		<form:label path="filmId"> Rating </form:label> 
-		<form:input type="text" name="Film title" path="filmId" placeholder="${film.rating}"/> 
+		<form:label path="rating"> Rating </form:label> 
+		<form:input type="text" name="Film title" path="rating" placeholder="${film.rating}"/> 
 		<br>
-		<form:label path="filmId"> Special Features </form:label> 
-		<form:input type="text" name="Film title" path="filmId" placeholder="${film.specialFeatures}"/> 
+		<form:label path="specialFeatures"> Special Features </form:label> 
+		<form:input type="text" name="Film title" path="specialFeatures" placeholder="${film.specialFeatures}"/> 
 		<br>
 		<input type="submit" value="Update Film" name="Update" />
 	</form:form>

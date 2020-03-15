@@ -128,7 +128,7 @@ public class FilmController {
 			}
 	
 	//deletes FILM by FILM ID
-	@RequestMapping (path="filmDelete.do", method=RequestMethod.GET)
+	@RequestMapping (path="filmDelete.do", method=RequestMethod.POST)
 	public ModelAndView deleteFilm(Film film) {
 			ModelAndView mv = new ModelAndView();
 			String user = "student";

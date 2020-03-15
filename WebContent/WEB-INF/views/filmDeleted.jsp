@@ -22,9 +22,9 @@
 	</form>
 	<br>
 	<br>
-	<form action="addForm.do" method="get">
-		<input type="submit" value="add Film" />
-	</form>
+	<form:form action="addForm.do" method="get" modelAttribute="film">
+		<input type="submit" value="film" />
+	</form:form>
 	
 
 

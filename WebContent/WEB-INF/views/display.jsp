@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@  taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 
 <!DOCTYPE html>
@@ -21,9 +22,9 @@
 	<li>${ actor.firstName} ${ actor.lastName}</li>
 	</c:forEach>
 	</ul>
-	<form action="filmDelete.do" method="get">
-	<input type="submit" value="delete"/>
-	</form>
+	<form:form action="addForm.do" method="get" modelAttribute="film">
+		<input type="submit" value="film" />
+	</form:form>
 	
 	
 </body>

@@ -10,10 +10,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Add Film to Database</title>
+<title>Film not found</title>
 </head>
 <body>
-	<h1>Your film has been deleted!</h1>
+	<h1>There was a problem deleting your film</h1>
 	<h3>What would you like to do?</h3>
 	<h3>Find another film</h3>
 	<form action="display.do" method="GET">
@@ -22,11 +22,11 @@
 	</form>
 	<br>
 	<br>
+		<h3>Add a new film</h3>
 	<form:form action="addForm.do" method="get" modelAttribute="film">
-		<input type="submit" value="Add new film" />
+		<input type="submit" value="Add new Film" />
 	</form:form>
 	
 
 
 </body>
-</html>

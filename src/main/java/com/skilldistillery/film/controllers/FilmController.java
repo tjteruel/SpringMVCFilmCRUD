@@ -132,9 +132,9 @@ public class FilmController {
 	@RequestMapping("filmDelete.do")
 	public String deleteFilm(@RequestParam("Delete") int filmId) {
 		if (filmDao.deleteFilm(filmId)) {
-			return "filmDelete.jsp";
+			return "/WEB-INF/views/filmDeleted.jsp";
 		} else {
-			return "Error.jsp";
+			return "/WEB-INF/views/Error.jsp";
 		}
 	}
 //	@RequestMapping (path="filmDelete.do", method=RequestMethod.POST)

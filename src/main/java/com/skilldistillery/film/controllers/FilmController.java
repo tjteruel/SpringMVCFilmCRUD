@@ -143,37 +143,15 @@ public class FilmController {
 			return "/WEB-INF/views/Error.jsp";
 		}
 	}
-//	@RequestMapping (path="filmDelete.do", method=RequestMethod.POST)
-//	public ModelAndView deleteFilm(Film film) {
-//			ModelAndView mv = new ModelAndView();
-//			String user = "student";
-//			String pass = "student";
-//		  Connection conn = null;
-//		  try {
-//		    conn = DriverManager.getConnection(URL, user, pass);
-//		    conn.setAutoCommit(false); // START TRANSACTION
-//		    String sql = "DELETE FROM film_actor WHERE film_id = ?";
-//		    PreparedStatement stmt = conn.prepareStatement(sql);
-//		    stmt.setInt(1, film.getId());
-//		    int updateCount = stmt.executeUpdate();
-//		    sql = "DELETE FROM film WHERE id = ?";
-//		    stmt = conn.prepareStatement(sql);
-//		    stmt.setInt(1, film.getId());
-//		    updateCount = stmt.executeUpdate();
-//		    conn.commit();             // COMMIT TRANSACTION
-//		  }
-//		  catch (SQLException sqle) {
-//		    sqle.printStackTrace();
-//		    if (conn != null) {
-//		      try { conn.rollback(); }
-//		      catch (SQLException sqle2) {
-//		        System.err.println("Error trying to rollback");
-//		      }
-//		    }
-//		  }
-//			mv.setViewName("WEB-INF/views/filmDeleted.jsp");
-//			return mv;
-//		}
+	
+	@RequestMapping("updateFilm.do")
+	public String updateFilm(@RequestParam("Update") Film film) {
+		if (filmDao.updateFilm(film)) {
+			return "/WEB-INF/views/filmUpdate.jsp";
+		} else {
+			return "/WEB-INF/views/Error.jsp";
+		}
+	}
 	
 	//returns ACTORs by FILM ID
 	public List<Actor> findActorsByFilmId(int filmId) {

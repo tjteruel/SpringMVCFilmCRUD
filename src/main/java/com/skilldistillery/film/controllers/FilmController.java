@@ -144,12 +144,20 @@ public class FilmController {
 		}
 	}
 	
+	
+	@RequestMapping(path="updateForm.do", method=RequestMethod.GET)
+	public ModelAndView updateForm() {
+		Film u = new Film();
+		ModelAndView mv = new ModelAndView("WEB-INF/views/filmUpdate.jsp", "film", u);
+		return mv;
+	}
+	//
 	@RequestMapping("updateFilm.do")
 	public String updateFilm(@RequestParam("Update") Film film) {
 		if (filmDao.updateFilm(film)) {
-			return "/WEB-INF/views/filmUpdate.jsp";
+			return "/WEB-INF/views/updateSuccess.jsp";
 		} else {
-			return "/WEB-INF/views/Error.jsp";
+			return "/WEB-INF/views/updateFail.jsp";
 		}
 	}
 	

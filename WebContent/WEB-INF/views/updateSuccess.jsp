@@ -5,30 +5,16 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Profile</title>
+<title>Update successful</title>
 </head>
 <body>
-	<h1>${film.title}</h1>
-	<h3>Rating: ${film.rating} | Released: ${film.releaseYear}</h3>
-
-	<p>${film.description}</p>
-	<h3>Cast</h3>
-	<ul>
-		<c:forEach items="${film.actors}" var="actor">
-			<li>${ actor.firstName}${ actor.lastName}</li>
-		</c:forEach>
-	</ul>
-	<form action="updateForm.do" method="get">
-		<input type="submit" value="Update Film" />
-	</form>
-	<h3>Click on button below to delete</h3>
-	<form action="filmDelete.do" method="post" modelAttribute="film">
-		<input type="submit" value="${film.id}" name="Delete" />
-	</form>
+	<h1>Your film has been updated!</h1>
+	<h3>What would you like to do?</h3>
 	<h3>Find another film</h3>
 	<form action="display.do" method="GET">
 		<label path="filmId"> Film ID </label> <input type="text"
@@ -36,10 +22,10 @@
 	</form>
 	<br>
 	<br>
-	<h3>Add a new film</h3>
 	<form:form action="addForm.do" method="get" modelAttribute="film">
-		<input type="submit" value="Add new Film" />
+		<input type="submit" value="Add new film" />
 	</form:form>
+	
 
 
 </body>

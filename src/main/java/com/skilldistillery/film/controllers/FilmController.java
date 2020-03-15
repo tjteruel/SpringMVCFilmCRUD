@@ -127,6 +127,39 @@ public class FilmController {
 			return mv;
 			}
 	
+	//deletes FILM by FILM ID
+	@RequestMapping (path="filmDelete.do", method=RequestMethod.POST)
+	public ModelAndView deleteFilm(Film film) {
+			ModelAndView mv = new ModelAndView();
+			String user = "student";
+			String pass = "student";
+		  Connection conn = null;
+		  try {
+		    conn = DriverManager.getConnection(URL, user, pass);
+		    conn.setAutoCommit(false); // START TRANSACTION
+		    String sql = "DELETE FROM film_actor WHERE actor_id = ?";
+		    PreparedStatement stmt = conn.prepareStatement(sql);
+		    stmt.setInt(1, film.getId());
+		    int updateCount = stmt.executeUpdate();
+		    sql = "DELETE FROM film WHERE id = ?";
+		    stmt = conn.prepareStatement(sql);
+		    stmt.setInt(1, film.getId());
+		    updateCount = stmt.executeUpdate();
+		    conn.commit();             // COMMIT TRANSACTION
+		  }
+		  catch (SQLException sqle) {
+		    sqle.printStackTrace();
+		    if (conn != null) {
+		      try { conn.rollback(); }
+		      catch (SQLException sqle2) {
+		        System.err.println("Error trying to rollback");
+		      }
+		    }
+		  }
+			mv.setViewName("WEB-INF/views/filmDeleted.jsp");
+			return mv;
+		}
+	
 	//returns ACTORs by FILM ID
 	public List<Actor> findActorsByFilmId(int filmId) {
 		List<Actor> actors = new ArrayList();

@@ -185,7 +185,7 @@ public class FilmController {
 		List<Film> films = filmDao.findFilmByKeyword(keyword);
 		if (films.size() != 0) {
 			mv.addObject("films", films);
-			mv.setViewName("/WEB-INF/views/display.jsp");
+			mv.setViewName("/WEB-INF/views/keywordFind.jsp");
 			return mv;
 		} else {
 			mv.addObject("films", films);

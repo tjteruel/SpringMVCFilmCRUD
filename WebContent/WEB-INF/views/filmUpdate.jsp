@@ -42,6 +42,7 @@
 		<label > Special Features </label> 
 		<input type="text" name="specialFeatures"  value="${film.specialFeatures}"/> 
 		<input type="hidden" name="languageId"  value="${film.languageId}"/> 
+		<input type="hidden" name="id"  value="${film.id}"/> 
 		<br>
 		<input type="submit" value="Update Film" />
 	</form:form>

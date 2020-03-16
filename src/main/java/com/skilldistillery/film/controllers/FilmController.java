@@ -181,6 +181,7 @@ public class FilmController {
 	// finds FILM by KEYWORD
 	@RequestMapping(path = "keywordSearch.do", method = RequestMethod.GET)
 	public ModelAndView keywordSearch(String keyword) {
+		System.out.println(keyword);
 		ModelAndView mv = new ModelAndView();
 		List<Film> films = filmDao.findFilmByKeyword(keyword);
 		if (films.size() != 0) {

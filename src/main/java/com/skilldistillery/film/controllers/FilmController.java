@@ -147,7 +147,7 @@ public class FilmController {
 	}
 
 	// update form
-	@RequestMapping(path="updateForm.do", method=RequestMethod.GET)
+	@RequestMapping(path = "updateForm.do", method = RequestMethod.GET)
 	public ModelAndView updateForm(@RequestParam("film") int filmId) {
 //		ModelAndView mv = new ModelAndView();
 		Film film = null;
@@ -164,8 +164,8 @@ public class FilmController {
 	}
 
 	// updates FILM
-	@RequestMapping(path="updateFilm.do", method=RequestMethod.POST)
-	public ModelAndView updateFilm( Film film) {
+	@RequestMapping(path = "updateFilm.do", method = RequestMethod.POST)
+	public ModelAndView updateFilm(Film film) {
 		ModelAndView mv = new ModelAndView();
 		if (filmDao.updateFilm(film)) {
 			mv.addObject("film", film);
@@ -174,6 +174,22 @@ public class FilmController {
 		} else {
 			mv.addObject("film", film);
 			mv.setViewName("/WEB-INF/views/updateFail.jsp");
+			return mv;
+		}
+	}
+
+	// finds FILM by KEYWORD
+	@RequestMapping(path = "keywordSearch.do", method = RequestMethod.GET)
+	public ModelAndView keywordSearch(String keyword) {
+		ModelAndView mv = new ModelAndView();
+		List<Film> films = filmDao.findFilmByKeyword(keyword);
+		if (films.size() != 0) {
+			mv.addObject("films", films);
+			mv.setViewName("/WEB-INF/views/display.jsp");
+			return mv;
+		} else {
+			mv.addObject("films", films);
+			mv.setViewName("/WEB-INF/views/filmNotFound.jsp");
 			return mv;
 		}
 	}

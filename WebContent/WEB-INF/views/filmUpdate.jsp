@@ -12,9 +12,9 @@
 <title>Film Update</title>
 </head>
 <body>
-	<h1>Update ${film.title}</h1>
+	<h1>Update ${film}</h1>
 
-	<form:form action="updateFilm.do" method="post" modelAttribute="film">
+	<form:form action="updateFilm.do" method="POST" modelAttribute="film">
 		<form:label path="title"> Film title </form:label> 
 		<form:input type="text" path="title" placeholder="${film.title}"/> 
 		<br>

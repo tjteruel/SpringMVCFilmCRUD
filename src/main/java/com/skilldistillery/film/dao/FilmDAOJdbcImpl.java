@@ -57,7 +57,6 @@ public class FilmDAOJdbcImpl implements FilmDAO {
 				film.setActors(findActorsByFilmId(filmId));
 				film.setLanguage(findLanguageById(filmId));
 			}
-			
 			rs.close();
 			pst.close();
 			conn.close();
@@ -65,7 +64,6 @@ public class FilmDAOJdbcImpl implements FilmDAO {
 			e.printStackTrace();
 		}
 		return film;
-
 	}
 
 	// returns films by keyword, displays title, year, rating, description and
@@ -104,7 +102,6 @@ public class FilmDAOJdbcImpl implements FilmDAO {
 			e.printStackTrace();
 		}
 		return films;
-
 	}
 
 	// returns Actor by ID
@@ -160,7 +157,6 @@ public class FilmDAOJdbcImpl implements FilmDAO {
 			e.printStackTrace();
 		}
 		return actors;
-
 	}
 
 	// find language by film ID

@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,23 +24,23 @@ import com.skilldistillery.film.entities.Film;
 
 @Controller
 public class FilmController {
-	
+
 	@Autowired
 	private FilmDAO filmDao;
-	
+
 	private static final String URL = "jdbc:mysql://localhost:3306/sdvid?useSSL=false";
-	
-	//add form
-	@RequestMapping(path="addForm.do", method=RequestMethod.GET)
+
+	// add form
+	@RequestMapping(path = "addForm.do", method = RequestMethod.GET)
 	public ModelAndView addForm() {
 		Film u = new Film();
 		ModelAndView mv = new ModelAndView("WEB-INF/views/add.jsp", "film", u);
 		return mv;
 	}
-	
-	//returns FILM by ID
-	@RequestMapping (path="display.do", method=RequestMethod.GET)
-		public ModelAndView findFilmById(int filmId) {
+
+	// returns FILM by ID
+	@RequestMapping(path = "display.do", method = RequestMethod.GET)
+	public ModelAndView findFilmById(int filmId) {
 		ModelAndView mv = new ModelAndView();
 		Film film = null;
 		String user = "student";
@@ -76,36 +77,35 @@ public class FilmController {
 		if (film == null) {
 			mv.setViewName("WEB-INF/views/filmNotFound.jsp");
 			return mv;
-		}
-		else {			
+		} else {
 			mv.addObject("film", film);
 			mv.setViewName("WEB-INF/views/display.jsp");
 			return mv;
 		}
 	}
-	
-	//user adds FILM
-	@RequestMapping (path="addNewFilm.do", method=RequestMethod.POST)
+
+	// user adds FILM
+	@RequestMapping(path = "addNewFilm.do", method = RequestMethod.POST)
 	public ModelAndView addFilm(Film film) {
 		ModelAndView mv = new ModelAndView();
 		String user = "student";
 		String pass = "student";
-		  Connection conn = null;
-		  try {
-		    conn = DriverManager.getConnection(URL, user, pass);
-		    conn.setAutoCommit(false); // START TRANSACTION
-		    String sql = "INSERT into film (title, description, release_year, rating, language_id) VALUES (?, ?, ?, ?, 1)";
-		    PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-		    stmt.setString(1, film.getTitle());
-		    stmt.setString(2, film.getDescription());
-		    stmt.setInt(3, film.getReleaseYear());
-		    stmt.setString(4, film.getRating());
-		    int updateCount = stmt.executeUpdate();    
-		    if (updateCount == 1) {
-		        ResultSet keys = stmt.getGeneratedKeys();
-		        if (keys.next()) {
-		          int newFilmId = keys.getInt(1);
-		          film.setId(newFilmId);
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(URL, user, pass);
+			conn.setAutoCommit(false); // START TRANSACTION
+			String sql = "INSERT into film (title, description, release_year, rating, language_id) VALUES (?, ?, ?, ?, 1)";
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, film.getTitle());
+			stmt.setString(2, film.getDescription());
+			stmt.setInt(3, film.getReleaseYear());
+			stmt.setString(4, film.getRating());
+			int updateCount = stmt.executeUpdate();
+			if (updateCount == 1) {
+				ResultSet keys = stmt.getGeneratedKeys();
+				if (keys.next()) {
+					int newFilmId = keys.getInt(1);
+					film.setId(newFilmId);
 //		          if (film.getActors() != null && film.getActors().size() > 0) {
 //		            sql = "INSERT INTO film_actor (film_id, actor_id) VALUES (?,?)";
 //		            stmt = conn.prepareStatement(sql);
@@ -113,29 +113,30 @@ public class FilmController {
 //		              stmt.setInt(1, film.getId());
 //		              stmt.setInt(2, newFilmId);
 //		              updateCount = stmt.executeUpdate();
-		            }
+				}
 //		          }
 //		        }
 //		      } else {
 //		        film = null;
-		      }
-		      conn.commit();           // COMMIT TRANSACTION
-		  } catch (SQLException sqle) {
-			    sqle.printStackTrace();
-			    if (conn != null) {
-			      try { conn.rollback(); }
-			      catch (SQLException sqle2) {
-			        System.err.println("Error trying to rollback");
-			      }
-			    }
-			    throw new RuntimeException("Error inserting film " + film);
-			  }
-			mv.addObject("film", film);
-			mv.setViewName("WEB-INF/views/filmAdded.jsp");
-			return mv;
 			}
-	
-	//deletes FILM by FILM ID
+			conn.commit(); // COMMIT TRANSACTION
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException sqle2) {
+					System.err.println("Error trying to rollback");
+				}
+			}
+			throw new RuntimeException("Error inserting film " + film);
+		}
+		mv.addObject("film", film);
+		mv.setViewName("WEB-INF/views/filmAdded.jsp");
+		return mv;
+	}
+
+	// deletes FILM by FILM ID
 	@RequestMapping("filmDelete.do")
 	public String deleteFilm(@RequestParam("Delete") int filmId) {
 		if (filmDao.deleteFilm(filmId)) {
@@ -144,16 +145,25 @@ public class FilmController {
 			return "/WEB-INF/views/Error.jsp";
 		}
 	}
-	
-	//update form
+
+	// update form
 	@RequestMapping(path="updateForm.do", method=RequestMethod.GET)
-	public ModelAndView updateForm(@RequestParam("film") Film film) {
-		ModelAndView mv = new ModelAndView("WEB-INF/views/filmUpdate.jsp");
-		mv.addObject("film", film);
-		return mv;
+	public ModelAndView updateForm(@RequestParam("film") int filmId) {
+//		ModelAndView mv = new ModelAndView();
+		Film film = null;
+		try {
+			film = filmDao.findFilmById(filmId);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		mv.addObject("film", film);
+//		mv.setViewName("WEB-INF/views/filmUpdate.jsp");
+//		return mv;
+		return new ModelAndView("WEB-INF/views/filmUpdate.jsp", "film", film);
 	}
-	
-	//updates FILM
+
+	// updates FILM
 	@RequestMapping("updateFilm.do")
 	public String updateFilm(@RequestParam("Update") Film film) {
 		if (filmDao.updateFilm(film)) {
@@ -162,8 +172,8 @@ public class FilmController {
 			return "/WEB-INF/views/updateFail.jsp";
 		}
 	}
-	
-	//returns ACTORs by FILM ID
+
+	// returns ACTORs by FILM ID
 	public List<Actor> findActorsByFilmId(int filmId) {
 		List<Actor> actors = new ArrayList();
 		String user = "student";
@@ -189,9 +199,8 @@ public class FilmController {
 		}
 		return actors;
 	}
-	
-	
-	//returns LANGUAGE by ID
+
+	// returns LANGUAGE by ID
 	public String findLanguageById(int filmId) {
 		String user = "student";
 		String pass = "student";

@@ -165,12 +165,17 @@ public class FilmController {
 	}
 
 	// updates FILM
-	@RequestMapping("updateFilm.do")
-	public String updateFilm(@RequestParam("Update") Film film) {
+	@RequestMapping(path="updateFilm.do", method=RequestMethod.POST)
+	public ModelAndView updateFilm(@RequestParam("Update") Film film) {
+		ModelAndView mv = new ModelAndView();
 		if (filmDao.updateFilm(film)) {
-			return "/WEB-INF/views/updateSuccess.jsp";
+			mv.addObject("film", film);
+			mv.setViewName("/WEB-INF/views/updateSuccess.jsp");
+			return mv;
 		} else {
-			return "/WEB-INF/views/updateFail.jsp";
+			mv.addObject("film", film);
+			mv.setViewName("/WEB-INF/views/updateFail.jsp");
+			return mv;
 		}
 	}
 

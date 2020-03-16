@@ -22,11 +22,11 @@
 			<li>${ actor.firstName}${ actor.lastName}</li>
 		</c:forEach>
 	</ul>
-	<form:form action="updateForm.do" method="get" modelAttribute="film">
-		<input type="submit" value="Update Film" name="Update"/>
+	<form:form action="updateForm.do" method="GET" modelAttribute="film">
+		<input type="submit" value="${film.id}" name="film"/>
 	</form:form>
 	<h3>Click on button below to delete</h3>
-	<form:form action="filmDelete.do" method="post" modelAttribute="film">
+	<form:form action="filmDelete.do" method="POST" modelAttribute="film">
 		<input type="submit" value="${film.id}" name="Delete" />
 	</form:form>
 	<h3>Find another film</h3>
@@ -37,7 +37,7 @@
 	<br>
 	<br>
 	<h3>Add a new film</h3>
-	<form:form action="addForm.do" method="get" modelAttribute="film">
+	<form:form action="addForm.do" method="GET" modelAttribute="film">
 		<input type="submit" value="Add new Film"  />
 	</form:form>
 

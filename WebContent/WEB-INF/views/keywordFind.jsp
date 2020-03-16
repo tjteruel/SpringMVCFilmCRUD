@@ -33,18 +33,14 @@
 	<form:form action="updateForm.do" method="GET" modelAttribute="film">
 		<input type="submit" value="${film.id}" name="film" />
 	</form:form>
-	<h3>Click on button below to delete</h3>
-	<form:form action="filmDelete.do" method="POST" modelAttribute="film">
-		<input type="hidden" value="${film.id}" name="Delete" />
-		<input type="submit" value="Delete Film" name="Delete" />
-	</form:form>
+
 	<h3>Find another film</h3>
 	<form action="display.do" method="GET">
 		<label path="filmId"> Film ID </label> <input type="text"
 			name="filmId" path="filmId" /> <input type="submit" value="display" />
 	</form>
 	<br>
-	<h3>Find a film by keyword</h3>
+	<h3>Find films by keyword</h3>
 	<form action="keywordSearch.do" method="GET">
 		<label> Film ID </label> <input type="text" name="keyword" /> <input
 			type="submit" value="display" />

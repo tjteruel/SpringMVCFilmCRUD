@@ -165,7 +165,7 @@ public class FilmController {
 
 	// updates FILM
 	@RequestMapping(path="updateFilm.do", method=RequestMethod.POST)
-	public ModelAndView updateFilm(@RequestParam("Update") Film film) {
+	public ModelAndView updateFilm( Film film) {
 		ModelAndView mv = new ModelAndView();
 		if (filmDao.updateFilm(film)) {
 			mv.addObject("film", film);

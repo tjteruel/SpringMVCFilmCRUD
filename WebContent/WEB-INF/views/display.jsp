@@ -23,7 +23,7 @@
 		</c:forEach>
 	</ul>
 	<form:form action="updateForm.do" method="get" modelAttribute="film">
-		<input type="submit" value="Update Film" name="Update"/>
+		<input type="submit" value="Update Film" name="film"/>
 	</form:form>
 	<h3>Click on button below to delete</h3>
 	<form:form action="filmDelete.do" method="post" modelAttribute="film">

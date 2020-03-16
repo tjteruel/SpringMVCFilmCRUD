@@ -147,7 +147,7 @@ public class FilmController {
 	
 	//update form
 	@RequestMapping(path="updateForm.do", method=RequestMethod.GET)
-	public ModelAndView updateForm(@ModelAttribute Film film) {
+	public ModelAndView updateForm(@RequestParam("film") Film film) {
 		ModelAndView mv = new ModelAndView("WEB-INF/views/filmUpdate.jsp");
 		mv.addObject("film", film);
 		return mv;

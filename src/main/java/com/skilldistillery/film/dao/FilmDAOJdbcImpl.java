@@ -231,40 +231,37 @@ public class FilmDAOJdbcImpl implements FilmDAO {
 		  try {
 		    conn = DriverManager.getConnection(URL, user, pass);
 		    conn.setAutoCommit(false); // START TRANSACTION
-		    String sql = "INSERT into film (title, description, release_year, rating, language_id) VALUES (?, ?, ?, ?, 1)";
-		    PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		    String sql = "Update film set title=?, description=?, release_year=?, rating=? WHERE film.id=?";
+		    PreparedStatement stmt = conn.prepareStatement(sql);
 		    stmt.setString(1, film.getTitle());
 		    stmt.setString(2, film.getDescription());
 		    stmt.setInt(3, film.getReleaseYear());
 		    stmt.setString(4, film.getRating());
+		    stmt.setInt(5, film.getId());		    
 		    int updateCount = stmt.executeUpdate();
-		    if (updateCount == 1) 
-//		    {
-//		      // Replace actor's film list
-//		      sql = "DELETE FROM film_actor WHERE film_id = ?";
-//		      stmt = conn.prepareStatement(sql);
-//		      stmt.setInt(1, film.getId());
-//		      updateCount = stmt.executeUpdate();
-//		      sql = "INSERT INTO film_actor (film_id, actor_id) VALUES (?,?)";
-//		      stmt = conn.prepareStatement(sql);
-//		      for (Film film : actor.getFilms()) {
-//		        stmt.setInt(1, film.getId());
-//		        stmt.setInt(2, actor.getId());
-//		        updateCount = stmt.executeUpdate();
-//		      }
-		      conn.commit();           // COMMIT TRANSACTION
-		  } catch (SQLException sqle) {
-		    sqle.printStackTrace();
-		    if (conn != null) {
-		      try { conn.rollback(); } // ROLLBACK TRANSACTION ON ERROR
-		      catch (SQLException sqle2) {
-		        System.err.println("Error trying to rollback");
-		      }
+		    if (updateCount == 1) {
+				// COMMIT TRANSACTION
+		    	conn.commit();
+		    	stmt.close();
+		    	return true;
 		    }
-		    return false;
-		  }
-		  return true;
-		}
-
+		  }  catch (Exception sqle) {
+			    sqle.printStackTrace();
+			    if (conn != null) {
+			      try { conn.rollback(); }
+			      catch (Exception sqle2) {
+			        System.err.println("Error trying to rollback");
+			      }
+			    }
+			    return false;
+			  } finally {
+				  try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			  }
+			  return false;
+	}
 }
 

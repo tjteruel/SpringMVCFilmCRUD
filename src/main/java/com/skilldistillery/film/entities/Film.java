@@ -10,6 +10,7 @@ public class Film {
 	private int languageId;
 	private int rentalDuration;
 	private double rentalRate;
+	private int length;
 	private double replacementCost;
 	private String rating;
 	private String specialFeatures;
@@ -252,6 +253,16 @@ public class Film {
 
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+
+
+	public int getLength() {
+		return length;
+	}
+
+
+	public void setLength(int length) {
+		this.length = length;
 	}
 		
 }
